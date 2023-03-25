@@ -5,6 +5,11 @@ import Task from "./Task";
 const TaskList = () => {
   const { data: tasks, isLoading, isError, error } = useGetTasksQuery();
 
+  // tags
+  let tags = [];
+
+  const tagsQuery = tags.map((tag) => ``);
+
   // decide what to render
   let content = null;
 

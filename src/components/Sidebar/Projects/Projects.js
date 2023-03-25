@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setProject } from "../../../features/filter/filterSlice";
 import { useGetProjectsQuery } from "../../../features/projects/projectsApi";
 
 const Projects = () => {
   const { data: projects, isLoading, isError, error } = useGetProjectsQuery();
+  const dispatch = useDispatch();
 
   // decide what to render
   let content = null;
@@ -24,6 +27,13 @@ const Projects = () => {
         </div>
       );
     });
+
+  // effect for filter state
+  useEffect(() => {
+    if (projects?.length) {
+      projects.map((project) => dispatch(setProject(project.projectName)));
+    }
+  }, [projects, dispatch]);
 
   return (
     <div>
