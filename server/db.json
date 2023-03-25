@@ -159,7 +159,8 @@
         "projectName": "Scoreboard",
         "colorClass": "color-scoreboard"
       },
-      "id": 6
+      "id": 6,
+      "status": "inProgress"
     }
   ]
 }

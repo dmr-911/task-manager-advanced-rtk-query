@@ -1,10 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useEditTaskMutation } from "../../features/tasks/tasksApi";
 
 const Task = ({ task }) => {
   const { teamMember, project, deadline, id, status, taskName } = task || {};
   const { projectName, colorClass } = project || {};
   const { name, avatar, id: memberId } = teamMember || {};
+
+  const [editTask, { isSuccess }] = useEditTaskMutation();
+
+  const handleChangeStatus = (e) => {
+    editTask({
+      id,
+      data: {
+        ...task,
+        status: e.target.value,
+      },
+    });
+  };
 
   return (
     <div className="lws-task">
@@ -61,7 +74,11 @@ const Task = ({ task }) => {
           </Link>
         )}
 
-        <select className="lws-status" value={status}>
+        <select
+          className="lws-status"
+          value={status}
+          onChange={handleChangeStatus}
+        >
           <option value="pending">Pending</option>
           <option value="inProgress">In Progress</option>
           <option value="completed">Completed</option>
