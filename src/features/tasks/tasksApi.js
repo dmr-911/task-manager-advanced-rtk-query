@@ -5,7 +5,15 @@ export const tasksApi = apiSlice.injectEndpoints({
     getTasks: builder.query({
       query: () => "/tasks",
     }),
+
+    addTask: builder.mutation({
+      query: (data) => ({
+        url: "/tasks",
+        method: "POST",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useGetTasksQuery } = tasksApi;
+export const { useGetTasksQuery, useAddTaskMutation } = tasksApi;

@@ -1,7 +1,6 @@
 import React from "react";
 import AddTaskContainer from "../components/AddTaskContainer";
 import Layout from "../components/Layout";
-import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar/Sidebar";
 import TaskList from "../components/TaskList/TaskList";
 
