@@ -1,25 +1,9 @@
 import React from "react";
+import Layout from "../components/Layout";
 
 const AddNew = () => {
   return (
-    <div>
-      <nav className="container relative py-3">
-        <div className="flex items-center justify-between">
-          <a href="./index.html">
-            <img src="./images/logo.svg" />
-          </a>
-          {/* There are nothing to do with the search in add or edit task page, but kept for looking good */}
-          <div className="flex-1 max-w-xs search-field group">
-            <i className="fa-solid fa-magnifying-glass search-icon group-focus-within:text-blue-500" />
-            <input
-              type="text"
-              placeholder="Search Job"
-              className="search-input"
-              id="lws-searchJob"
-            />
-          </div>
-        </div>
-      </nav>
+    <Layout>
       <div className="container relative">
         <main className="relative z-20 max-w-3xl mx-auto rounded-lg xl:max-w-none">
           <h1 className="mt-4 mb-8 text-3xl font-bold text-center text-gray-800">
@@ -79,7 +63,7 @@ const AddNew = () => {
           </div>
         </main>
       </div>
-    </div>
+    </Layout>
   );
 };
 
