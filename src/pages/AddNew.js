@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Layout from "../components/Layout";
 import { useGetProjectsQuery } from "../features/projects/projectsApi";
-import { useAddTaskMutation } from "../features/tasks/tasksApi";
+import {
+  useAddTaskMutation,
+  useGetTaskQuery,
+} from "../features/tasks/tasksApi";
 import { useGetTeamQuery } from "../features/team/teamApi";
 
 // {
@@ -21,16 +25,38 @@ import { useGetTeamQuery } from "../features/team/teamApi";
 //   "status": "completed"
 // },
 
+const initialData = {
+  taskName: "",
+  teamMember: "",
+  projectName: "",
+  deadline: "",
+};
+
 const AddNew = () => {
-  const { data: team, isSuccess } = useGetTeamQuery();
-  const { data: projects, isSuccess: projectSuccess } = useGetProjectsQuery();
-  const [addTask] = useAddTaskMutation();
-  const [taskForm, setTaskForm] = useState({
-    taskName: "",
-    teamMember: "",
-    projectName: "",
-    deadline: "",
+  const { taskId } = useParams();
+  const location = useLocation();
+  const getTaskData =
+    (taskId && location.pathname.includes("edit-task")) || false;
+  const { data: taskData, isSuccess: taskSuccess } = useGetTaskQuery(taskId, {
+    skip: !getTaskData,
   });
+  const { data: team, isSuccess: teamSuccess } = useGetTeamQuery();
+  const { data: projects, isSuccess: projectSuccess } = useGetProjectsQuery();
+  const [addTask, { data: addData, isSuccess: addSuccess }] =
+    useAddTaskMutation();
+
+  const navigate = useNavigate();
+  const [taskForm, setTaskForm] = useState(initialData);
+
+  // load data when edit active
+  useEffect(() => {
+    setTaskForm({
+      taskName: taskData?.taskName,
+      teamMember: taskData?.teamMember?.name,
+      projectName: taskData?.project?.projectName,
+      deadline: taskData?.deadline,
+    });
+  }, [taskData]);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -65,7 +91,6 @@ const AddNew = () => {
     });
   };
 
-  console.log(projects);
   return (
     <Layout>
       <div className="container relative">
