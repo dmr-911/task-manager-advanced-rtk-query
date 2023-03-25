@@ -4,6 +4,7 @@ import Layout from "../components/Layout";
 import { useGetProjectsQuery } from "../features/projects/projectsApi";
 import {
   useAddTaskMutation,
+  useEditTaskMutation,
   useGetTaskQuery,
 } from "../features/tasks/tasksApi";
 import { useGetTeamQuery } from "../features/team/teamApi";
@@ -44,6 +45,9 @@ const AddNew = () => {
   const { data: projects, isSuccess: projectSuccess } = useGetProjectsQuery();
   const [addTask, { data: addData, isSuccess: addSuccess }] =
     useAddTaskMutation();
+
+  const [editTask, { data: editData, isSuccess: editSuccess }] =
+    useEditTaskMutation();
 
   const navigate = useNavigate();
   const [taskForm, setTaskForm] = useState(initialData);
@@ -91,6 +95,33 @@ const AddNew = () => {
     });
   };
 
+  const handleEditTask = (e) => {
+    e.preventDefault();
+
+    const findProject = projects?.find(
+      (project) => project.projectName == taskForm?.projectName
+    );
+    const findMember = team?.find(
+      (member) => member.name == taskForm?.teamMember
+    );
+
+    // send to api
+    editTask({
+      id: taskId,
+      data: {
+        ...taskData,
+        taskName: taskForm?.taskName,
+        teamMember: {
+          ...findMember,
+        },
+        deadline: taskForm?.deadline,
+        project: {
+          ...findProject,
+        },
+      },
+    });
+  };
+
   return (
     <Layout>
       <div className="container relative">
@@ -99,7 +130,14 @@ const AddNew = () => {
             Create Task for Your Team
           </h1>
           <div className="justify-center mb-10 space-y-2 md:flex md:space-y-0">
-            <form className="space-y-6" onSubmit={handleAddTask}>
+            <form
+              className="space-y-6"
+              onSubmit={
+                location.pathname.includes("edit-task")
+                  ? handleEditTask
+                  : handleAddTask
+              }
+            >
               <div className="fieldContainer">
                 <label htmlFor="lws-taskName">Task Name</label>
                 <input
