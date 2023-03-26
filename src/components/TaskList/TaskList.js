@@ -11,9 +11,8 @@ const TaskList = () => {
   const filterByProjects = (task) => {
     const taskExists = projects.find(
       (project) =>
-        project.id === task.project.id &&
-        project.projectName.trim().toLowerCase() ===
-          task.project.projectName.trim().toLowerCase()
+        project.trim().toLowerCase() ===
+        task.project.projectName.trim().toLowerCase()
     );
 
     if (taskExists) {
@@ -40,7 +39,6 @@ const TaskList = () => {
     ?.filter(filterByProjects)
     ?.filter(filterBySearchText);
 
-    
   // decide what to render
   let content = null;
 
@@ -48,11 +46,11 @@ const TaskList = () => {
 
   if (!isLoading && isError) content = <div>{error}</div>;
 
-  if (!isLoading && !isError && !tasks?.length)
+  if (!isLoading && !isError && !taskToShow?.length)
     content = <div>No tasks found!</div>;
 
-  if (!isLoading && !isError && tasks?.length)
-    content = tasks.map((task) => <Task key={task.id} task={task} />);
+  if (!isLoading && !isError && taskToShow?.length)
+    content = taskToShow.map((task) => <Task key={task.id} task={task} />);
   return <div className="lws-task-list">{content}</div>;
 };
 

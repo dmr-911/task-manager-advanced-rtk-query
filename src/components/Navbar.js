@@ -20,9 +20,8 @@ const Navbar = () => {
           <input
             type="text"
             placeholder="Search Task"
-            className="search-input text-black"
+            className="search-input"
             id="lws-searchTask"
-            value={search}
             onChange={handleSearch}
           />
         </div>
