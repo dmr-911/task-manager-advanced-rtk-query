@@ -1,10 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setProject } from "../../../features/filter/filterSlice";
+import { setProject, setProjects } from "../../../features/filter/filterSlice";
 import { useGetProjectsQuery } from "../../../features/projects/projectsApi";
 
 const Projects = () => {
-  const { data: projects, isLoading, isError, error } = useGetProjectsQuery();
+  const {
+    data: projects,
+    isLoading,
+    isError,
+    error,
+    isSuccess,
+  } = useGetProjectsQuery();
   const { projects: filterProjects } = useSelector((state) => state.filter);
   const dispatch = useDispatch();
 
@@ -21,10 +27,11 @@ const Projects = () => {
   if (!isLoading && !isError && projects?.length)
     content = projects.map((project) => {
       const { id, projectName, colorClass } = project || {};
-      const findItem = filterProjects?.find((f) => f == projectName) || false;
+      const findItem =
+        filterProjects?.find((f) => f.projectName == projectName) || false;
 
       const handleChecked = (e) => {
-        dispatch(setProject(projectName));
+        dispatch(setProject(project));
       };
 
       return (
@@ -42,10 +49,11 @@ const Projects = () => {
 
   // effect for filter state
   useEffect(() => {
-    if (projects?.length) {
-      projects.map((project) => dispatch(setProject(project.projectName)));
+    if (isSuccess) {
+      // projects.map((project) => dispatch(setProject(project.projectName)));
+      dispatch(setProjects(projects));
     }
-  }, [projects, dispatch]);
+  }, [projects, dispatch, isSuccess]);
 
   return (
     <div>

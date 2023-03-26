@@ -11,8 +11,9 @@ const TaskList = () => {
   const filterByProjects = (task) => {
     const taskExists = projects.find(
       (project) =>
-        project.trim().toLowerCase() ===
-        task.project.projectName.trim().toLowerCase()
+        project.id === task.project.id &&
+        project.projectName.trim().toLowerCase() ===
+          task.project.projectName.trim().toLowerCase()
     );
 
     if (taskExists) {
