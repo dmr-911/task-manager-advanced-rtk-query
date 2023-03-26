@@ -72,9 +72,9 @@
     {
       "taskName": "Task One",
       "teamMember": {
-        "name": "Saad Hasan",
-        "avatar": "/images/avatars/sadh.png",
-        "id": 2
+        "name": "Md Salahuddin",
+        "avatar": "/images/avatars/salahuddin.png",
+        "id": 4
       },
       "project": {
         "id": 1,
@@ -83,14 +83,14 @@
       },
       "deadline": "2023-03-15",
       "id": 1,
-      "status": "inProgress"
+      "status": "pending"
     },
     {
       "taskName": "Task Two",
       "teamMember": {
-        "name": "Akash Ahmed",
-        "avatar": "/images/avatars/akash.png",
-        "id": 3
+        "name": "Sumit Saha",
+        "avatar": "/images/avatars/sumit.png",
+        "id": 1
       },
       "project": {
         "id": 2,
@@ -98,14 +98,15 @@
         "colorClass": "color-flight"
       },
       "deadline": "2023-03-23",
-      "id": 2
+      "id": 2,
+      "status": "inProgress"
     },
     {
       "taskName": "Task Three",
       "teamMember": {
-        "name": "Sumit Saha",
-        "avatar": "/images/avatars/sumit.png",
-        "id": 1
+        "name": "Akash Ahmed",
+        "avatar": "/images/avatars/akash.png",
+        "id": 3
       },
       "project": {
         "id": 3,
@@ -113,14 +114,15 @@
         "colorClass": "color-productCart"
       },
       "deadline": "2023-03-03",
-      "id": 3
+      "id": 3,
+      "status": "pending"
     },
     {
       "taskName": "New Task",
       "teamMember": {
-        "name": "Riyadh Hassan",
-        "avatar": "/images/avatars/riyadh.png",
-        "id": 5
+        "name": "Akash Ahmed",
+        "avatar": "/images/avatars/akash.png",
+        "id": 3
       },
       "project": {
         "id": 1,
@@ -128,7 +130,8 @@
         "colorClass": "color-scoreboard"
       },
       "deadline": "2023-03-11",
-      "id": 4
+      "id": 4,
+      "status": "pending"
     },
     {
       "taskName": "Fix a bug",
@@ -144,23 +147,23 @@
         "colorClass": "color-bookstore"
       },
       "id": 5,
-      "status": "completed"
+      "status": "pending"
     },
     {
-      "taskName": "Card Holder",
+      "taskName": "Qatar Airways",
       "teamMember": {
         "name": "Sumit Saha",
         "avatar": "/images/avatars/sumit.png",
         "id": 1
       },
-      "deadline": "2023-03-31",
+      "deadline": "2023-03-25",
       "project": {
-        "id": 1,
-        "projectName": "Scoreboard",
-        "colorClass": "color-scoreboard"
+        "id": 2,
+        "projectName": "Flight Booking",
+        "colorClass": "color-flight"
       },
       "id": 6,
-      "status": "inProgress"
+      "status": "completed"
     }
   ]
 }

@@ -93,6 +93,8 @@ const AddNew = () => {
         ...findProject,
       },
     });
+
+    navigate("/");
   };
 
   const handleEditTask = (e) => {
@@ -120,6 +122,8 @@ const AddNew = () => {
         },
       },
     });
+
+    navigate("/");
   };
 
   return (
@@ -163,7 +167,9 @@ const AddNew = () => {
                     Select Job
                   </option>
                   {team?.map((t) => (
-                    <option value={t.name}>{t.name}</option>
+                    <option key={t.id} value={t.name}>
+                      {t.name}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -181,7 +187,9 @@ const AddNew = () => {
                   </option>
                   <option>Scoreboard</option>
                   {projects?.map((p) => (
-                    <option value={p.projectName}>{p.projectName}</option>
+                    <option key={p.id} value={p.projectName}>
+                      {p.projectName}
+                    </option>
                   ))}
                 </select>
               </div>

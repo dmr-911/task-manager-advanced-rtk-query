@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setProject } from "../../../features/filter/filterSlice";
 import { useGetProjectsQuery } from "../../../features/projects/projectsApi";
 
 const Projects = () => {
   const { data: projects, isLoading, isError, error } = useGetProjectsQuery();
+  const { projects: filterProjects } = useSelector((state) => state.filter);
   const dispatch = useDispatch();
 
   // decide what to render
@@ -20,9 +21,20 @@ const Projects = () => {
   if (!isLoading && !isError && projects?.length)
     content = projects.map((project) => {
       const { id, projectName, colorClass } = project || {};
+      const findItem = filterProjects?.find((f) => f == projectName) || false;
+
+      const handleChecked = (e) => {
+        dispatch(setProject(projectName));
+      };
+
       return (
         <div className="checkbox-container" key={id}>
-          <input type="checkbox" className={colorClass} defaultChecked />
+          <input
+            type="checkbox"
+            className={colorClass}
+            checked={findItem}
+            onChange={handleChecked}
+          />
           <p className="label">{projectName}</p>
         </div>
       );

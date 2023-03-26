@@ -1,15 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useGetTasksQuery } from "../../features/tasks/tasksApi";
 import Task from "./Task";
 
 const TaskList = () => {
   const { data: tasks, isLoading, isError, error } = useGetTasksQuery();
+  const { projects, search } = useSelector((state) => state.filter);
 
-  // tags
-  let tags = [];
+  // filter by projects
+  const filterByProjects = (task) => {
+    const taskExists = projects.find(
+      (project) =>
+        project.id === task.project.id &&
+        project.projectName.trim().toLowerCase() ===
+          task.project.projectName.trim().toLowerCase()
+    );
 
-  const tagsQuery = tags.map((tag) => ``);
+    if (taskExists) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
+  //filter by search
+  const filterBySearchText = (task) => {
+    if (search) {
+      return task.taskName
+        .trim()
+        .toLowerCase()
+        .includes(search.trim().toLowerCase());
+    } else {
+      return true;
+    }
+  };
+
+  // filter tasks with search and filter
+  const taskToShow = tasks
+    ?.filter(filterByProjects)
+    ?.filter(filterBySearchText);
+
+    
   // decide what to render
   let content = null;
 
